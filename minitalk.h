@@ -1,15 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdoulahi <mdoulahi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/11 16:59:07 by mdoulahi          #+#    #+#             */
+/*   Updated: 2023/11/16 14:13:05 by mdoulahi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINITALK_H
-#define MINITALK_H
+# define MINITALK_H
 
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "ft_printf/ft_printf.h"
+# include <unistd.h>
+# include <stdio.h>
+# include <signal.h>
+# include <stdlib.h>
 
-# define RED "\033[0;31m"
-# define GREEN "\033[1;32m"
-# define YELLOW "\033[0;33m"
-# define BLUE "\033[1;34m"
-# define END "\033[0m"
+typedef struct data
+{
+	int				counter;
+	unsigned char	c;
+	int				s;
+	int				pid;
+	int				is_unicode;
+	int				i;
+}	t_data;
 
-#endif
+void	ft_putchar(char c);
+void	ft_putstr(char *s);
+void	ft_putnbr(int n);
+void	*ft_memset(void *b, int c, size_t len);
+
+int		ft_atoi(const char *str);
+
+#endif 

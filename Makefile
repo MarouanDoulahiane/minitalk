@@ -1,47 +1,48 @@
-CC = cc -W -W -W 
+SRC-C	=	client.c utilis.c 
+SRC-S	=	server.c utilis.c
 
-CLIENT_C = client.c
-SERVER_C = server.c
+SRC-C-B	=	client_bonus.c utilis.c
+SRC-S-B	=	server_bonus.c utilis.c
 
-CLIENT = client
-SERVER = server
+CC		=	cc -Wall -Werror -Wextra
 
-LIBFT_DIR = ft_printf
-LIBFT = ft_printf/libft.a
+NAME-C	=	client
+NAME-S	=	server
 
-MAKE = make -C $(LIBFT_DIR)
-MAKE_FCLEAN = make fclean -C $(LIBFT_DIR)
-MAKE_CLEAN = make clean -C $(LIBFT_DIR)
+NAME-C-B	=	client_bonus
+NAME-S-B	=	server_bonus
 
-#Colors:
 RED		=	\033[1;31m
 GREEN	=	\033[1;32m
-END		=	\033[0m
+YELLOW	=	\033[1;33m
+NC		=	\033[0m
 
-_SUCCESS	=	$(GREEN)[SUCCESS]$(END)
-_INFO	=	$(RED)[INFO]$(END)
+all:	$(NAME-C) $(NAME-S)
 
-all: $(LIBFT) $(CLIENT) $(SERVER) 
+bonus:	$(NAME-C-B) $(NAME-S-B)
 
-$(LIBFT):
-	@$(MAKE)
+$(NAME-C): minitalk.h client.c utilis.c 
+		@$(CC) $(SRC-C) -o $(NAME-C) 
+		@echo "$(GREEN)Client program was created$(NC)"
 
-$(SERVER): $(CLIENT)
-	@$(CC) $(SERVER_C) $(LIBFT) -o $(SERVER)
-	@printf "$(_SUCCESS) $(SERVER) ready.\n"
+$(NAME-S): minitalk.h server.c utilis.c
+		@$(CC) $(SRC-S) -o $(NAME-S) 
+		@echo "$(GREEN)Server program was created$(NC)"
 
-$(CLIENT):
-	@$(CC) $(CLIENT_C) $(LIBFT) -o $(CLIENT)
-	@printf "$(_SUCCESS) $(CLIENT) ready.\n"
+$(NAME-C-B): minitalk.h client_bonus.c utilis.c
+		@$(CC) $(SRC-C-B) -o $(NAME-C-B) 
+		@echo "$(GREEN)Client bonus program was created$(NC)"
 
-fclean:
-	@$(MAKE_FCLEAN)
-	@rm -fr $(SERVER) $(CLIENT)
-	@printf "$(_INFO) $(CLIENT) removed.\n"
-	@printf "$(_INFO) $(SERVER) removed.\n"
+$(NAME-S-B): minitalk.h server_bonus.c utilis.c
+		@$(CC) $(SRC-S-B) -o $(NAME-S-B)  
+		@echo "$(GREEN)Server bonus program was created$(NC)"
 
 clean:
-	@$(MAKE_CLEAN)
-	@printf "$(_INFO)object files removed.\n"
+		@rm -fr $(NAME-C) $(NAME-S) $(NAME-C-B) $(NAME-S-B)
+		@echo "$(RED)You delete everything$(NC)"
 
-re: fclean all
+fclean:	clean
+
+re:		fclean all
+
+.PHONY:	all clean fclean re
